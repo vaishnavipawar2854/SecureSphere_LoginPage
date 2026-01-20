@@ -9,7 +9,7 @@
 
 // Use production backend URL if on production, otherwise use localhost
 const API_URL = window.location.hostname === 'secure-sphere-login-page.vercel.app' 
-    ? 'https://secure-sphere-login-page-ueo2.vercel.app/api/auth'
+    ? 'https://secure-sphere-login-page.vercel.app/api/auth'
     : 'http://localhost:5000/api/auth';
 
 // ===========================
