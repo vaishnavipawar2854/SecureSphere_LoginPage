@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard – SecureSphere</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <img src="assets/world_img-removebg-preview.png" alt="World" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <h2>SecureSphere</h2>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="nav-item active" data-section="dashboard">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-info-sidebar">
+                    <div class="user-avatar-small" id="sidebarAvatar">U</div>
+                    <div class="user-details-small">
+                        <div class="user-name-small" id="sidebarUserName">User</div>
+                        <div class="user-status">Online</div>
+                    </div>
+                </div>
+                <button onclick="logout()" class="btn-logout">
+                    <span>🚪</span>
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="mobile-menu-toggle" onclick="handleBackNavigation()" title="Go back">←</button>
+                    <h1>Welcome back, <span id="userName">User</span>! 👋</h1>
+                    <p class="topbar-subtitle" id="currentDate">Loading...</p>
+                </div>
+                <div class="topbar-right">
+                    <div class="search-box">
+                        <input type="search" placeholder="Search..." id="dashboardSearch">
+                        <span class="search-icon">🔍</span>
+                    </div>
+                    <button class="icon-button" onclick="refreshPage()" title="Refresh Dashboard">
+                        🔄
+                    </button>
+                    <button class="icon-button" onclick="toggleTheme()" title="Toggle Theme">
+                        🌙
+                    </button>
+                    <div class="user-menu">
+                        <div class="user-avatar" id="topbarAvatar">U</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="content-wrapper">
+                <!-- Dashboard Overview Section -->
+                <section id="dashboard-section" class="dashboard-section active">
+                    <div class="section-header">
+                        <h2>Dashboard Overview</h2>
+                        <div class="section-actions">
+                            <select class="period-select" id="periodSelect">
+                                <option value="today">Today</option>
+                                <option value="week" selected>This Week</option>
+                                <option value="month">This Month</option>
+                                <option value="year">This Year</option>
+                            </select>
+                            <button class="btn-secondary" onclick="exportData()">
+                                📥 Export
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Profile Info -->
+                    <div class="profile-section" style="margin-bottom: 2rem;">
+                        <div class="profile-card large">
+                            <div class="profile-banner"></div>
+                            <div class="profile-content">
+                                <div class="profile-avatar-large">
+                                    <div class="avatar-circle" id="profileAvatar">U</div>
+                                    <button class="avatar-upload" title="Change Avatar">📷</button>
+                                </div>
+                                <div class="profile-info">
+                                    <h2 id="profileFullName">Loading...</h2>
+                                    <p class="profile-email" id="profileEmail">Loading...</p>
+                                    <div class="profile-badges">
+                                        <span class="badge verified">✓ Verified</span>
+                                        <span class="badge member">Member</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="profile-details-grid">
+                                <div class="detail-item">
+                                    <span class="detail-icon">📧</span>
+                                    <div>
+                                        <span class="detail-label">Email Address</span>
+                                        <span class="detail-value" id="userEmail">Loading...</span>
+                                    </div>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-icon">📅</span>
+                                    <div>
+                                        <span class="detail-label">Member Since</span>
+                                        <span class="detail-value" id="memberSince">Loading...</span>
+                                    </div>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-icon">🕐</span>
+                                    <div>
+                                        <span class="detail-label">Last Login</span>
+                                        <span class="detail-value" id="lastLogin">Loading...</span>
+                                    </div>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-icon">🌐</span>
+                                    <div>
+                                        <span class="detail-label">Account Status</span>
+                                        <span class="detail-value status-active">Active</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon blue">
+                                📊
+                            </div>
+                            <div class="stat-content">
+                                <h3>Total Sessions</h3>
+                                <p class="stat-value" id="statSessions">0</p>
+                                <span class="stat-change positive">+12.5%</span>
+                                <div class="stat-mini-chart">
+                                    <div class="mini-bar" style="height: 30%"></div>
+                                    <div class="mini-bar" style="height: 45%"></div>
+                                    <div class="mini-bar" style="height: 60%"></div>
+                                    <div class="mini-bar" style="height: 80%"></div>
+                                    <div class="mini-bar" style="height: 100%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon green">
+                                ✅
+                            </div>
+                            <div class="stat-content">
+                                <h3>Login Success Rate</h3>
+                                <p class="stat-value">98.5%</p>
+                                <span class="stat-change positive">+2.1%</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 98.5%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon purple">
+                                🔐
+                            </div>
+                            <div class="stat-content">
+                                <h3>Security Score</h3>
+                                <p class="stat-value">95/100</p>
+                                <span class="stat-change positive">+5 points</span>
+                                <div class="security-badge">Excellent</div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon orange">
+                                ⚡
+                            </div>
+                            <div class="stat-content">
+                                <h3>Avg Response Time</h3>
+                                <p class="stat-value">45ms</p>
+                                <span class="stat-change positive">-12ms</span>
+                                <div class="status-indicator">
+                                    <span class="status-dot success"></span> All Systems Operational
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts & Activity Row -->
+                    <div class="dashboard-row">
+                        <div class="chart-card">
+                            <div class="card-header">
+                                <h3>Activity Overview</h3>
+                                <div class="chart-legend">
+                                    <span><span class="legend-dot" style="background: #8b5cf6"></span> Logins</span>
+                                    <span><span class="legend-dot" style="background: #10b981"></span> Success</span>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="activityChart"></canvas>
+                                <div class="chart-placeholder">
+                                    <div class="chart-bars">
+                                        <div class="chart-bar" style="height: 60%"><span>Mon</span></div>
+                                        <div class="chart-bar" style="height: 75%"><span>Tue</span></div>
+                                        <div class="chart-bar" style="height: 45%"><span>Wed</span></div>
+                                        <div class="chart-bar" style="height: 90%"><span>Thu</span></div>
+                                        <div class="chart-bar" style="height: 70%"><span>Fri</span></div>
+                                        <div class="chart-bar" style="height: 50%"><span>Sat</span></div>
+                                        <div class="chart-bar" style="height: 40%"><span>Sun</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="activity-card">
+                            <h3>Recent Activity</h3>
+                            <div class="activity-list" id="activityList">
+                                <div class="activity-item">
+                                    <div class="activity-icon success">🔐</div>
+                                    <div class="activity-content">
+                                        <p class="activity-title">Successful login</p>
+                                        <p class="activity-time" id="loginTime">Just now</p>
+                                    </div>
+                                    <span class="activity-badge success">Success</span>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon info">👤</div>
+                                    <div class="activity-content">
+                                        <p class="activity-title">Profile accessed</p>
+                                        <p class="activity-time">2 minutes ago</p>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon info">📊</div>
+                                    <div class="activity-content">
+                                        <p class="activity-title">Dashboard viewed</p>
+                                        <p class="activity-time">5 minutes ago</p>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon warning">⚠️</div>
+                                    <div class="activity-content">
+                                        <p class="activity-title">Session refreshed</p>
+                                        <p class="activity-time">15 minutes ago</p>
+                                    </div>
+                                    <span class="activity-badge warning">Auto</span>
+                                </div>
+                            </div>
+                            <button class="btn-link">View all activity →</button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="quick-actions-section">
+                        <h3>Quick Actions</h3>
+                        <div class="actions-grid">
+                            <button class="action-button" onclick="downloadReport()">
+                                <span class="action-icon">📊</span>
+                                <span class="action-label">Download Report</span>
+                            </button>
+                            <button class="action-button" onclick="refreshPage()">
+                                <span class="action-icon">🔄</span>
+                                <span class="action-label">Refresh Data</span>
+                            </button>
+                            <button class="action-button" onclick="logout()">
+                                <span class="action-icon">🚪</span>
+                                <span class="action-label">Logout</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Profile Statistics Card -->
+                    <div class="profile-stats-card" style="margin-top: 2rem;">
+                        <h3>Profile Statistics</h3>
+                        <div class="stats-list">
+                            <div class="stat-item">
+                                <span class="stat-label">Total Logins</span>
+                                <span class="stat-number" id="totalLogins">--</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Account Age</span>
+                                <span class="stat-number" id="accountAge">--</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Security Level</span>
+                                <span class="stat-number">High</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Last Password Change</span>
+                                <span class="stat-number">Never</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Profile Section (Remove this entire section) -->
+                <section id="profile-section" class="dashboard-section" style="display: none;">
+                    <div class="section-header">
+                        <h2>Your Profile</h2>
+                        <button class="btn-primary" onclick="editProfile()">
+                            ✏️ Edit Profile
+                        </button>
+                    </div>
+
+                    <div class="profile-section">
+                        <div class="profile-card large">
+                            <div class="profile-banner"></div>
+                            <div class="profile-content">
+                                <div class="profile-avatar-large">
+                                    <div class="avatar-circle" id="profileAvatar">U</div>
+                                    <button class="avatar-upload" title="Change Avatar">📷</button>
+                                </div>
+                                <div class="profile-info">
+                                    <h2 id="profileFullName">Loading...</h2>
+                                    <p class="profile-email" id="profileEmail">Loading...</p>
+                                    <div class="profile-badges">
+                                        <span class="badge verified">✓ Verified</span>
+                                        <span class="badge member">Member</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="profile-details-grid">
+                                <div class="detail-item">
+                                    <span class="detail-icon">📧</span>
+                                    <div>
+                                        <span class="detail-label">Email Address</span>
+                                        <span class="detail-value" id="userEmail">Loading...</span>
+                                    </div>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-icon">📅</span>
+                                    <div>
+                                        <span class="detail-label">Member Since</span>
+                                        <span class="detail-value" id="memberSince">Loading...</span>
+                                    </div>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-icon">🕐</span>
+                                    <div>
+                                        <span class="detail-label">Last Login</span>
+                                        <span class="detail-value" id="lastLogin">Loading...</span>
+                                    </div>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-icon">🌐</span>
+                                    <div>
+                                        <span class="detail-label">Account Status</span>
+                                        <span class="detail-value status-active">Active</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile-stats-card">
+                            <h3>Profile Statistics</h3>
+                            <div class="stats-list">
+                                <div class="stat-item">
+                                    <span class="stat-label">Total Logins</span>
+                                    <span class="stat-number" id="totalLogins">--</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Account Age</span>
+                                    <span class="stat-number" id="accountAge">--</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Security Level</span>
+                                    <span class="stat-number">High</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Last Password Change</span>
+                                    <span class="stat-number">Never</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

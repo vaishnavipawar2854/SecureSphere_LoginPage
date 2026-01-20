@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register – SecureSphere</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Left Section - Globe -->
+        <div class="left-section">
+            <div class="globe-container">
+                <div class="globe"></div>
+            </div>
+            <div class="left-content">
+                <h1>SecureSphere</h1>
+                <p>Join the secure platform</p>
+            </div>
+        </div>
+
+        <!-- Right Section - Register Form -->
+        <div class="right-section">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Create Account</h2>
+                    <p>Sign up to get started</p>
+                </div>
+
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                            <span class="input-icon">👤</span>
+                        </div>
+                        <div class="error-message" id="nameError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <div class="input-wrapper">
+                            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                            <span class="input-icon">📧</span>
+                        </div>
+                        <div class="error-message" id="emailError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="password" name="password" placeholder="Create a password" required>
+                            <span class="password-toggle">👁️‍🗨️</span>
+                        </div>
+                        <div class="error-message" id="passwordError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                            <span class="password-toggle">👁️‍🗨️</span>
+                        </div>
+                        <div class="error-message" id="confirmPasswordError"></div>
+                    </div>
+
+                    <div class="success-message" id="successMessage"></div>
+
+                    <button type="submit" class="btn-primary">Create Account</button>
+
+                    <div class="divider">
+                        <span>or</span>
+                    </div>
+
+                    <div class="signup-link">
+                        Already have an account? <a href="index.html">Login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
