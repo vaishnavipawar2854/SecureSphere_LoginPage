@@ -25,11 +25,8 @@ const app = express();
 
 // CORS - Allow cross-origin requests from frontend
 const allowedOrigins = [
-    "https://secure-sphere-login-page.vercel.app",
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "http://127.0.0.1:5173",
-    "http://localhost:5173"
+    "https://secure-sphere-login-page-frontend.vercel.app/",
+   
 ];
 
 // Configure CORS with helpful development shortcuts
