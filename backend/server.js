@@ -25,8 +25,9 @@ const app = express();
 
 // CORS - Allow cross-origin requests from frontend
 const allowedOrigins = [
-    "https://secure-sphere-login-page-frontend.vercel.app/",
-   
+    // Standard production frontend (no trailing slash)
+    "https://secure-sphere-login-page-frontend.vercel.app",
+    // Add more trusted origins here or set via env FRONTEND_URL
 ];
 
 // Configure CORS with helpful development shortcuts
@@ -35,19 +36,29 @@ app.use(cors({
         // Allow requests with no origin (like mobile apps, curl, or server-to-server requests)
         if (!origin) return callback(null, true);
 
+        // Normalize origin by stripping any trailing slash
+        const incomingOrigin = origin.replace(/\/$/, '');
+
         // In development, allow localhost / 127.0.0.1 on any port to simplify testing
         if (process.env.NODE_ENV !== 'production') {
-            if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
-                console.log('CORS allowed (dev localhost):', origin);
+            if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(incomingOrigin)) {
+                console.log('CORS allowed (dev localhost):', incomingOrigin);
                 return callback(null, true);
             }
         }
 
-        if (allowedOrigins.indexOf(origin) !== -1) {
+        // Allow explicitly listed origins
+        if (allowedOrigins.indexOf(incomingOrigin) !== -1) {
             return callback(null, true);
         }
 
-        console.warn('CORS blocked for origin:', origin);
+        // Allow Vercel preview / production domains that end with `.vercel.app`
+        if (/\.vercel\.app$/.test(incomingOrigin)) {
+            console.log('CORS allowed (vercel domain):', incomingOrigin);
+            return callback(null, true);
+        }
+
+        console.warn('CORS blocked for origin:', incomingOrigin);
         callback(new Error('Not allowed by CORS'));
     },
     credentials: true // Allow cookies to be sent

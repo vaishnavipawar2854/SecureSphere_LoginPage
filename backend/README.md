@@ -51,3 +51,8 @@ The backend allows requests from:
 - `http://localhost:3000` (development frontend)
 - Any localhost/127.0.0.1 origin in development mode
 - Production frontend URL (when deployed)
+
+Notes:
+- The server normalizes origins (removes trailing slashes) to avoid mismatches like `https://example.vercel.app/` vs `https://example.vercel.app`.
+- If you host both frontend and backend on Vercel, the server will also allow origins that end with `.vercel.app` to accommodate preview and production domains.
+- To restrict access, replace the permissive `.vercel.app` rule with explicit entries or set the `FRONTEND_URL` env var and add it to `allowedOrigins` in `server.js`.
