@@ -5,6 +5,7 @@
   "scripts": {
     "start": "live-server --port=3000 --open=index.html",
     "dev": "live-server --port=3000 --open=index.html",
+    "build": "rm -rf dist && mkdir -p dist && cp index.html register.html dashboard.html script.js style.css dist/ && cp -r assets dist/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
